@@ -1,3 +1,3 @@
-## VWGoals
+## Goals
 
 Aplicativo de objetivos.
