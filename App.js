@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { StyleSheet, View, FlatList, Button } from "react-native";
-import GoalItem from "./src/components/GoalItem";
-import GoalInput from "./src/components/GoalInput";
+import { StatusBar } from "expo-status-bar";
+import GoalItem from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 // O ScrollView/FlatList depende do seu pai, logo coloque sempre uma View acima dele definido o tamanho
 // do scroll que será realizado, lembrando que existem atributos especificos para Android e IOS.
 // Para listas nunca use o ScrollView pq ele sempre renderiza tudo que tem dentro, deixando-o lento.
@@ -21,18 +22,21 @@ export default App = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Button title="Adicionar novo objetivo" color="#5e0acc" onPress={() => setShowModal(true)} />
-      <GoalInput visible={showModal} onAddGoal={addGoalHandler} onCancel={() => setShowModal(false)} />
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={goals}
-          alwaysBounceVertical={false}
-          keyExtractor={item => item.id}
-          renderItem={data => <GoalItem goal={data.item} onDeleteItem={deleteGoalHandler} />}
-        />
+    <>
+      <StatusBar style="light" />
+      <View style={styles.container}>
+        <Button title="Adicionar novo objetivo" color="#a065ce" onPress={() => setShowModal(true)} />
+        <GoalInput visible={showModal} onAddGoal={addGoalHandler} onCancel={() => setShowModal(false)} />
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={goals}
+            alwaysBounceVertical={false}
+            keyExtractor={item => item.id}
+            renderItem={data => <GoalItem goal={data.item} onDeleteItem={deleteGoalHandler} />}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 50,
-    paddingHorizontal: 16,
+    paddingHorizontal: 16
   },
   goalsContainer: {
     flex: 5,
